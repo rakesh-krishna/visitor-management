@@ -5,6 +5,8 @@ import datetime
 import time
 
 
+app = Flask(__name__)
+
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -21,8 +23,6 @@ def get_post(post_id):
     return post
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your secret key'
 
 
 @app.route('/')
@@ -182,6 +182,4 @@ def delete(id):
     flash('"{}" was successfully deleted!'.format(post['username']))
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    # app.run(host='0.0.0.0')
-    app.run()
+

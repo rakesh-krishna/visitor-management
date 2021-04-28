@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Edit "{{ post['username'] }}" {% endblock %}</h1>
+
+<form method="post">
+    <!-- <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Post title"
+               class="form-control"
+               value="{{ request.form['title'] or post['title'] }}">
+        </input>
+    </div>
+
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" placeholder="Post content"
+                  class="form-control">{{ request.form['content'] or post['content'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div> -->
+    <div class="form-group">
+        <label for="title">Name</label>
+        <input type="text" name="username" id="username"
+               placeholder="Name" class="form-control"
+               value="{{ request.form['username'] or post['username'] }}"></input>
+    </div>
+
+    <div class="form-group">
+        <label for="content">Reason</label>
+        <textarea name="reason" placeholder="Reason for visit"
+                  class="form-control">{{ request.form['reason'] or post['reason']}}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="title">Whom are you visiting</label>
+        <input type="text" name="whom_to_meet" id="whom_to_meet"
+               placeholder="Whom are you visiting ?" class="form-control"
+               value="{{ request.form['whom_to_meet'] or post['whom_to_meet'] }}"></input>
+    </div>
+    <div class="form-group">
+        <label for="title">Entry Time</label>
+        <input type="datetime-local" id="entryTime" name="entryTime"
+       value ="{{ post[1] }}"  required>
+    </div>
+    <div class="form-group">
+        <label for="title">Exit Time </label>
+        <input type="datetime-local" id="exitTime" name="exitTime"
+        value ="{{  post[5]  }}"
+         required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+<hr>
+<form action="{{ url_for('delete', id=post['id']) }}" method="POST">
+    <input type="submit" value="Delete Post"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Are you sure you want to delete this post?')">
+</form>
+{% endblock %}
+

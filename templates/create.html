@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Create a New Entry {% endblock %}</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="title">Name</label>
+        <input type="text" name="username" id="username"
+               placeholder="Name" class="form-control"
+               value="{{ request.form['username'] }}"></input>
+    </div>
+
+    <div class="form-group">
+        <label for="content">Reason</label>
+        <textarea name="reason" placeholder="Reason for visit"
+                  class="form-control">{{ request.form['reason'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="title">Whom are you visiting</label>
+        <input type="text" name="whom_to_meet" id="whom_to_meet"
+               placeholder="Whom are you visiting ?" class="form-control"
+               value="{{ request.form['whom_to_meet'] }}"></input>
+    </div>
+    <div class="form-group">
+        <label for="title">Entry Time</label>
+        <input type="datetime-local" id="entryTime" name="entryTime"
+       min="<?php echo $currenttime?>"  required>
+    </div>
+    <div class="form-group">
+        <label for="title">Exit Time </label>
+        <input type="datetime-local" id="exitTime" name="exitTime"
+       min="<?php echo $currenttime?>"  required>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>
+{% endblock %}

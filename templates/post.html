@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>{% block title %} {{ post['username'] }} {% endblock %}</h2>
-    <span class="badge badge-primary">{{ post['created'] }}</span>
-    <p>{{ post['reason'] }}</p>
+    <h1>{% block title %} {{ post['username'] }} {% endblock %}</h1>
+    <span class="badge badge-dark">From</span>
+        <span class="badge badge-pill badge-primary">{{ post['created'] }}</span>
+        <span class="badge badge-dark">To</span>
+        <span class="badge badge-pill badge-primary">{{ post['exit'] }}</span>
+        <br>
+        <br>
+        <h2>Whom are they visiting : {{ post['whom_to_meet'] }}</h2>
+        <h2>Reason for visit : &nbsp;&nbsp; {{ post['reason'] }}</h2>
+
+    <!-- <p>{{ post['reason'] }}</p> -->
 {% endblock %}

@@ -6,6 +6,7 @@ import time
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'rakeshkrishna'
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -130,18 +131,16 @@ def info():
                     startTime = i
                     endTIme = i+period
 
-            print(max_number)
-            print(startTime)
-            print(endTIme)
-            print(datetime.datetime.fromtimestamp(startTime / 1e3))
-            print(datetime.datetime.fromtimestamp(endTIme / 1e3))
+            # print(max_number)
+            # print(startTime)
+            # print(endTIme)
+            # print(datetime.datetime.fromtimestamp(startTime / 1e3))
+            # print(datetime.datetime.fromtimestamp(endTIme / 1e3))
             st_date=datetime.datetime.fromtimestamp(startTime)
             end_date=datetime.datetime.fromtimestamp(endTIme)
             return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits,startDate=st_date,endDate=end_date,MaxCount=max_number)
         except Exception as e:
-            
-            return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits,startDate="No entries on this date")    
-    
+            flash('No Logs on '+date)    
     return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits)
     
 def DateTimeConvert(date_in):

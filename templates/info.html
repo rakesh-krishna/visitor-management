@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Info {% endblock %}</h1>
+<h1>{% block title %} Admin {% endblock %}</h1>
 <form>
     <span class="badge badge-dark">Highest Visited Person</span>
     <span class="badge badge-pill badge-primary">{{ post[1] }}</span>
-    <span class="badge badge-dark">Reason for Highest visits</span>
+    <span class="badge badge-dark">Reason for most visits</span>
     <span class="badge badge-pill badge-primary">{{ postted[1] }}</span>
 </form>
+<br>
+<br>
+<span class="badge badge-dark">Maximum Visitors</span>
+<br>
+
 <form method="post">
         <input type="date" id="findDate" name="findDate" required>
         <select class="form-select" aria-label="Default select example" name="period">
@@ -16,16 +21,18 @@
             <option value="30">30 minutes</option>
             <option value="60">60 minutes</option>
           </select>
+          <br>
+          <br>
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
-        
-        <h2>Starting Time</h2>
-        <h2>{{ startDate }}</h2>
-        <h2>End Time</h2>
-        <h2>{{ endDate }}</h2>
-        <h2>Visitors during this Time period</h2>
-        <h2>{{ MaxCount }}</h2>
-    
+        <pre>
+        <h2>Starting Time : {{ startDate }}</h2>
+        <!-- <h2>{{ startDate }}</h2> -->
+        <h2>End Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ endDate }}</h2>
+        <!-- <h2>{{ endDate }}</h2> -->
+        <h2>Maximum number of Visitors during this Time Period : {{ MaxCount }}</h2>
+        <!-- <h2>{{ MaxCount }}</h2> -->
+        </pre>
 </form>
 {% endblock %}

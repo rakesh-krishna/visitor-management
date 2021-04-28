@@ -90,53 +90,57 @@ def info():
     conn.close()
 
     if request.method == 'POST':
-        print("post")
-        date = request.form['findDate']
-        period = request.form['period']
-        period = int(period)
-        print(date)
-        print(period)
-        conn = get_db_connection()
-        query = "select * from posts where DATE(created) == strftime('%Y-%m-%d','"+date+"')"
-        posts = conn.execute(query).fetchall()
-        conn.close()
-        intimes = []
-        outtimes =[]
-        for i in posts:
-            print(i[1])
-            print(DateTimeConvert(i[1]))
-            intimes.append(DateTimeConvert(i[1]))
-            outtimes.append(DateTimeConvert(i[5]))
+        try:
+            print("post")
+            date = request.form['findDate']
+            period = request.form['period']
+            period = int(period)
+            print(date)
+            print(period)
+            conn = get_db_connection()
+            query = "select * from posts where DATE(created) == strftime('%Y-%m-%d','"+date+"')"
+            posts = conn.execute(query).fetchall()
+            conn.close()
+            
+            intimes = []
+            outtimes =[]
+            for i in posts:
+                print(i[1])
+                print(DateTimeConvert(i[1]))
+                intimes.append(DateTimeConvert(i[1]))
+                outtimes.append(DateTimeConvert(i[5]))
 
-        first_entry = min((intimes))
-        last_exit = max((outtimes))
+            first_entry = min((intimes))
+            last_exit = max((outtimes))
 
-        print('-----------------------')
+            print('-----------------------')
 
-        step = 60
-        period = period * 60
-        max_number = 0
-        startTime = 0
-        endTIme = 0
-        for i in range(first_entry,last_exit,step):
-            count = 0
-            for out in outtimes:
-                if out >= i and out <=i+period:
-                    count+=1
-            if count>max_number:
-                max_number = count
-                startTime = i
-                endTIme = i+period
+            step = 60
+            period = period * 60
+            max_number = 0
+            startTime = 0
+            endTIme = 0
+            for i in range(first_entry,last_exit,step):
+                count = 0
+                for out in outtimes:
+                    if out >= i and out <=i+period:
+                        count+=1
+                if count>max_number:
+                    max_number = count
+                    startTime = i
+                    endTIme = i+period
 
-        print(max_number)
-        print(startTime)
-        print(endTIme)
-        print(datetime.datetime.fromtimestamp(startTime / 1e3))
-        print(datetime.datetime.fromtimestamp(endTIme / 1e3))
-        st_date=datetime.datetime.fromtimestamp(startTime)
-        end_date=datetime.datetime.fromtimestamp(endTIme)
-        return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits,startDate=st_date,endDate=end_date,MaxCount=max_number)
-        
+            print(max_number)
+            print(startTime)
+            print(endTIme)
+            print(datetime.datetime.fromtimestamp(startTime / 1e3))
+            print(datetime.datetime.fromtimestamp(endTIme / 1e3))
+            st_date=datetime.datetime.fromtimestamp(startTime)
+            end_date=datetime.datetime.fromtimestamp(endTIme)
+            return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits,startDate=st_date,endDate=end_date,MaxCount=max_number)
+        except Exception as e:
+            
+            return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits,startDate="No entries on this date")    
     
     return render_template('info.html', post=HighVisited,postted=ReasonForFrequentVisits)
     
